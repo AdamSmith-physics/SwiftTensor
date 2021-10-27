@@ -38,7 +38,6 @@ public class Matrix : CustomStringConvertible {
     var real : [Double] = []
     var imag : [Double] = []
 
-    //var matrix : DSPDoubleSplitComplex = DSPDoubleSplitComplex(realp: &[0.0], imagp: &[0.0])
     var rows : Int = 0
     var columns : Int = 0
 
@@ -67,8 +66,8 @@ public class Matrix : CustomStringConvertible {
     }
 
     init(real: [Double], imag: [Double], rows: Int, columns: Int) {
-        precondition(real.count == imag.count, "Real and imaginary parts are different size")
-        precondition(real.count == rows*columns, "Matrix dimensions don't match input size")
+        precondition(real.count == imag.count, "Matrix: Real and imaginary parts are different size")
+        precondition(real.count == rows*columns, "Matrix: Dimensions don't match input size")
 
         self.real = real
         self.imag = imag
