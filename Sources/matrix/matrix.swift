@@ -49,7 +49,7 @@ public class Matrix : CustomStringConvertible {
         let cplx_list_unflat = unflatten(matrix: cplx_list, rows: rows, columns: columns)
         var print_string: String = "["
         for (ii, temp_list) in cplx_list_unflat.enumerated() {
-            if ii > 0 {print_string += "\n "}
+            if ii > 0 { print_string += "\n " }
             print_string += "\(temp_list)"
         }
         print_string += "]"

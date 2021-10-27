@@ -1,14 +1,13 @@
 import Accelerate
 
-extension Matrix {
-    static func +(left: Matrix, right: Matrix) -> Matrix {
-        return add(left, right)
-    }
-
-    static func -(left: Matrix, right: Matrix) -> Matrix {
-        return subtract(left, right)
-    }
+public func +(left: Matrix, right: Matrix) -> Matrix {
+    return add(left, right)
 }
+
+public func -(left: Matrix, right: Matrix) -> Matrix {
+    return subtract(left, right)
+}
+
 
 func add(_ left: Matrix, _ right: Matrix) -> Matrix {
     precondition((left.rows == right.rows) && (left.columns == right.columns), "Add: Matrices are not the same size!")
