@@ -5,6 +5,10 @@ public func *(left: Matrix, right: Matrix) -> Matrix {
     return mtimes(left, right)
 }
 
+public prefix func -(matrix: Matrix) -> Matrix {
+    return -1.0 * matrix
+}
+
 infix operator .* : DefaultPrecedence
 public func .*(left: Matrix, right: Matrix) -> Matrix {
     precondition((left.rows == right.rows) && (left.columns == right.columns),
