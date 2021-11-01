@@ -49,8 +49,10 @@ public func tensordot(_ A: Tensor, _ B: Tensor, axesA: [Int], axesB: [Int]) -> T
                 "Tensordot: axes out of range for tensor A")
     precondition(axesB.max()! < B.shape.count,
                 "Tensordot: axes out of range for tensor B")
-    // Add error catching in case the dimensions of contraction axes don't match!!
-
+    for (ii, val) in axesA.enumerated() {
+        precondition(A.shape[val] == B.shape[axesB[ii]],
+                "Tensordot: length of contraction axes doesn't match!")
+    }
 
     var idxA: [Int] = []
     var dimsA: [Int] = []
