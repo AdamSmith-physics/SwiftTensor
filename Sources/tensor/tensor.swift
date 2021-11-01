@@ -30,6 +30,8 @@ public class Tensor {
         }
     }
 
+    init(){}
+
     init(real: [Double], imag: [Double], shape: [Int]) {
         precondition(real.count == imag.count, 
                     "Tensor: Real and imaginary parts are different size")

@@ -41,3 +41,53 @@ public func *(left: cplx, right: Tensor) -> Tensor {
 public func *(left: Tensor, right: cplx) -> Tensor {
     return right * left
 }
+
+public func tensordot(_ A: Tensor, _ B: Tensor, axesA: [Int], axesB: [Int]) -> Tensor {
+    precondition(axesA.count == axesB.count,
+                "Tensordot: number of contraction axes doesn't match!")
+    precondition(axesA.max()! < A.shape.count,
+                "Tensordot: axes out of range for tensor A")
+    precondition(axesB.max()! < B.shape.count,
+                "Tensordot: axes out of range for tensor B")
+    // Add error catching in case the dimensions of contraction axes don't match!!
+
+
+    var idxA: [Int] = []
+    var dimsA: [Int] = []
+    var dimsK: [Int] = []
+    for ii in 0..<A.shape.count {
+        if !axesA.contains(ii) {
+            idxA.append(ii)
+            dimsA.append(A.shape[ii])
+        }
+        else {
+            dimsK.append(A.shape[ii])
+        }
+    }
+
+    var idxB: [Int] = []
+    var dimsB: [Int] = []
+    for ii in 0..<B.shape.count {
+        if !axesB.contains(ii) {
+            idxB.append(ii)
+            dimsB.append(B.shape[ii])
+        }
+    }
+
+    let M = dimsA.reduce(1, {x,y in x*y})
+    let K = dimsK.reduce(1, {x,y in x*y})
+    let N = dimsB.reduce(1, {x,y in x*y})
+
+    var A_t = A.transpose(idxA + axesA)
+    var A_mat = Matrix(real: A_t.real, imag: A_t.imag, rows: M, columns: K)
+    A_t = Tensor()  // reduce memory usage!
+
+    var B_t = B.transpose(axesB + idxB)
+    let B_mat = Matrix(real: B_t.real, imag: B_t.imag, rows: K, columns: N)
+    B_t = Tensor()  // reduce memory usage!
+
+    A_mat = A_mat * B_mat  // reuse A_mat
+
+    return Tensor(real: A_mat.real, imag: A_mat.imag, shape: dimsA + dimsB)
+
+}
