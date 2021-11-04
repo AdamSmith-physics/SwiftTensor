@@ -25,7 +25,7 @@ public class Gate {
 
     init(matrix: [[cplx]], qubits: [Int]){
 
-        var newMatrix = matrix.flatMap{$0}
+        let newMatrix = matrix.flatMap{$0}
 
         precondition(2**(2*qubits.count) == newMatrix.count,
                     "Gate: Matrix size doesn't match number of qubits")
@@ -37,7 +37,7 @@ public class Gate {
     func sort() {
         let argSort = argsort(self.qubits)
         let argSort_plus_N = argSort.map{$0+self.qubits.count}
-        self.qubits = argsort.map{self.qubits[$0]}
+        self.qubits = argSort.map{self.qubits[$0]}
         self.gate = self.gate.transpose(argSort + argSort_plus_N)
     }
 
@@ -55,8 +55,8 @@ public class Gate {
         var notActed = Array(0..<N)
         notActed.removeAll(where: {acted.contains($0)})
 
-        var newState = state.transpose(notActed + acted)
-        newState = tensordot(newState, self.gate, axesA: [acted], axesB: Array(M..<2*M))
+        var newState = state.state.transpose(notActed + acted)
+        newState = tensordot(newState, self.gate, axesA: acted, axesB: Array(M..<2*M))
 
         var newAxes = Array(repeating: 0, count: N)
         for (ii, val) in notActed.enumerated() {
@@ -66,8 +66,16 @@ public class Gate {
             newAxes[val] = ii + notActed.count
         }
 
-        state = state.transpose(newAxes)
+        newState = newState.transpose(newAxes)
 
+        return State(state: newState)
+
+    }
+
+    static func x(_ qubit: Int) -> Gate{
+        //This needs testing!!
+        let matrix = [[cplx(0,0),cplx(1,0)],[cplx(1,0),cplx(0,0)]]
+        return Gate(matrix: matrix, qubits: [qubit])
     }
 
 }

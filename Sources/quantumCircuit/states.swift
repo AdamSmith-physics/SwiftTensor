@@ -16,4 +16,9 @@ public class State {
                         shape: Array(repeating: 2, count: N))
     }
 
+    init(state: Tensor) {
+        // Add checks!!!!!
+        self.N = state.shape.count
+        self.state = state
+    }
 }
