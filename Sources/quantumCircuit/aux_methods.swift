@@ -16,3 +16,10 @@ public func power(_ base: Int, _ exponent: Int) -> Int {
         return result
     }
 }
+
+public func argsort<T:Comparable>( _ a : [T] ) -> [Int] {
+    //sorted ascending!
+    var r = Array(a.indices)
+    r.sort(by: {a[$0] < a[$1]})
+    return r
+}
