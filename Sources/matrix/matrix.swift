@@ -1,5 +1,13 @@
 import Accelerate
 
+/** Represents a single complex number.
+
+- parameters:
+    - real: The real part of the number.
+    - imag: The imaginary part of the number.
+
+Can be added together using + operator.
+*/
 public struct cplx : CustomStringConvertible {
     var real : Double
     var imag : Double
@@ -34,6 +42,8 @@ public func +(left: [cplx], right: [cplx]) -> [cplx]{
     return cplx_list
 }
 
+/** Matrix class to allow for efficient matrix multiplication.
+*/
 public class Matrix : CustomStringConvertible {
     var real : [Double] = []
     var imag : [Double] = []

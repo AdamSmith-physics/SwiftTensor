@@ -1,4 +1,4 @@
-
+import Foundation  // for maths
 
 public class Gate {
 
@@ -41,7 +41,7 @@ public class Gate {
         self.gate = self.gate.transpose(argSort + argSort_plus_N)
     }
 
-    public func apply(state: State) -> State {
+    public func apply(_ state: State) -> State {
         // This needs testing!!!!!!
         let N = state.N
         let M = self.qubits.count
@@ -72,10 +72,14 @@ public class Gate {
 
     }
 
-    static func x(_ qubit: Int) -> Gate{
-        //This needs testing!!
-        let matrix = [[cplx(0,0),cplx(1,0)],[cplx(1,0),cplx(0,0)]]
-        return Gate(matrix: matrix, qubits: [qubit])
-    }
+}
 
+precedencegroup GatePrecedence {
+    associativity: right
+    higherThan: MultiplicationPrecedence
+}
+
+infix operator >< : GatePrecedence
+public func ><(left: Gate, right: State) -> State {
+    return left.apply(right)
 }
