@@ -41,7 +41,7 @@ public class Gate {
         self.gate = self.gate.transpose(argSort + argSort_plus_N)
     }
 
-    public func apply(_ state: State) -> State {
+    public func apply(_ state: QuantumState) -> QuantumState {
         // This needs testing!!!!!!
         let N = state.N
         let M = self.qubits.count
@@ -68,7 +68,7 @@ public class Gate {
 
         newState = newState.transpose(newAxes)
 
-        return State(state: newState)
+        return QuantumState(state: newState)
 
     }
 
@@ -80,6 +80,6 @@ precedencegroup GatePrecedence {
 }
 
 infix operator >< : GatePrecedence
-public func ><(left: Gate, right: State) -> State {
+public func ><(left: Gate, right: QuantumState) -> QuantumState {
     return left.apply(right)
 }

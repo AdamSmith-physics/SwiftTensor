@@ -4,14 +4,14 @@ class QuantumCircuit {
 
     var gates: [Gate] = []
     var N: Int = 0
-    var initialState: State = State()
+    var initialState: QuantumState = QuantumState()
 
     init(_ N: Int) {
         self.N = N
-        self.initialState = State(N)
+        self.initialState = QuantumState(N)
     }
 
-    func run() -> State {
+    func run() -> QuantumState {
         var finalState = initialState
         for gate in gates {
             finalState = gate.apply(finalState)

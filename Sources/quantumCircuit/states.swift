@@ -1,6 +1,6 @@
 
 
-public class State {
+public class QuantumState {
 
     var state: Tensor = Tensor()
     var N: Int = 0
