@@ -1,0 +1,29 @@
+import Accelerate
+
+//change from swift to txt for xcode!!
+
+var psi = QuantumState(2)
+print(psi.state.real)
+print(psi.state.imag)
+
+let h = Gate.h(0)
+let x = Gate.x(1)
+let cnot = Gate.cnot(0,1)
+
+/*psi = h >< psi
+psi = cnot >< psi
+psi = x >< psi*/
+psi = x >< cnot >< h >< psi
+
+print(psi.state.real)
+print(psi.state.imag)
+
+let qc = QuantumCircuit(2)
+
+qc.h(0)
+qc.cnot(0,1)
+qc.x(1)
+
+let psi2 = qc.run()
+print(psi2.state.real)
+print(psi2.state.imag)

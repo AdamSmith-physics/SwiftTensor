@@ -21,4 +21,34 @@ public class QuantumState {
         self.N = state.shape.count
         self.state = state
     }
+    
+    func measure(shots: Int, qubits: [Int]) -> [String : Int] {
+        
+        var probabilities: [Double] = (state .* state.conj).real
+        probabilities = cumsum(probabilities)
+        
+        var measuredStateList: [Int] = []
+        for _ in 0..<shots {
+            let r_val = Double.random(in: 0..<1)
+            var x: [Int] = Array(0..<probabilities.count)
+            x = x.map{ (probabilities[$0]<r_val ? 1 : 0) }
+            let whichState: Int = x.reduce(0){ $0 + $1 } //ones.reduce(0){ $0 + (probabilities[$1]<r_val ? $1 : 0 ) }
+            measuredStateList = measuredStateList + [whichState]  //need to convert to strings!
+        }
+        
+        var measurementDict: [String : Int] = [:]
+        
+        for whichState in measuredStateList {
+            var stateString = num2bin(num: whichState, toSize: self.N)
+            stateString = qubits.compactMap{ stateString[$0] }.joined()
+            if measurementDict[stateString] != nil {
+                measurementDict[stateString]! += 1
+            } else {
+                measurementDict[stateString] = 1
+            }
+        }
+        
+        return measurementDict
+    }
+    
 }
