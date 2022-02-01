@@ -55,7 +55,7 @@ public class Gate {
         var notActed = Array(0..<N)
         notActed.removeAll(where: {acted.contains($0)})
 
-        var newState = state.state.transpose(notActed + acted)
+        var newState = state.state //state.state.transpose(notActed + acted)
         newState = tensordot(newState, self.gate, axesA: acted, axesB: Array(M..<2*M))
 
         var newAxes = Array(repeating: 0, count: N)

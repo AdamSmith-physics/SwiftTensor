@@ -57,6 +57,8 @@ public func tensordot(_ A: Tensor, _ B: Tensor, axesA: [Int], axesB: [Int]) -> T
     var idxA: [Int] = []
     var dimsA: [Int] = []
     var dimsK: [Int] = []
+    
+    // can do without for loop!
     for ii in 0..<A.shape.count {
         if !axesA.contains(ii) {
             idxA.append(ii)

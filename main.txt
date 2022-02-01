@@ -18,12 +18,15 @@ psi = x >< cnot >< h >< psi
 print(psi.state.real)
 print(psi.state.imag)
 
-let qc = QuantumCircuit(2)
+let qc = QuantumCircuit(12)
 
 qc.h(0)
 qc.cnot(0,1)
-qc.x(1)
+//qc.x(1)
 
 let psi2 = qc.run()
 print(psi2.state.real)
 print(psi2.state.imag)
+
+let results = psi2.measure(shots: 10000, qubits: [1])
+print(results)

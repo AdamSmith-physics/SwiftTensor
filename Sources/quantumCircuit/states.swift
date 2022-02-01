@@ -23,7 +23,8 @@ public class QuantumState {
     }
     
     func measure(shots: Int, qubits: [Int]) -> [String : Int] {
-        
+        // speed improvement needed!
+
         var probabilities: [Double] = (state .* state.conj).real
         probabilities = cumsum(probabilities)
         
