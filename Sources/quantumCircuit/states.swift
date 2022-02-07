@@ -37,7 +37,7 @@ public class QuantumState {
 
         // Parellization not worth it! Do differently.
         //DispatchQueue.concurrentPerform(iterations: shots) { kk in
-        //for _ in 0..<shots {
+        for _ in 0..<shots {
             let r_val = Double.random(in: 0..<1)
             
             var whichState: Int = probabilities.count-1
@@ -57,13 +57,13 @@ public class QuantumState {
             var stateString = num2bin(num: whichState, toSize: self.N)
             stateString = qubits.compactMap{ stateString[$0] }.joined()
 
-            syncQueue.sync {
-                if measurementDict[stateString] != nil {
-                    measurementDict[stateString]! += 1
-                } else {
-                    measurementDict[stateString] = 1
-                }
+            //syncQueue.sync {
+            if measurementDict[stateString] != nil {
+                measurementDict[stateString]! += 1
+            } else {
+                measurementDict[stateString] = 1
             }
+            //}
 
         }
         
