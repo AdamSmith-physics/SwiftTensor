@@ -1,6 +1,6 @@
 import Accelerate
 
-public class Tensor {
+public class Tensor: Codable {
     var real : [Double] = []
     var imag : [Double] = []
 

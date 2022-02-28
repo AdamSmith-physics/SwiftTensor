@@ -1,6 +1,6 @@
 import Foundation
 
-public class QuantumState {
+public class QuantumState: Codable {
 
     var state: Tensor = Tensor()
     var N: Int = 0
@@ -26,10 +26,11 @@ public class QuantumState {
         // speed improvement needed!
 
         var probabilities: [Double] = (state .* state.conj).real
-        probabilities = cumsum(probabilities)
+        probabilities = cumsum(probabilities)  // add line to ensure probabilities add to 1
         
         let x: [Int] = Array(0..<probabilities.count)
         
+        var tempMeasurementDict: [Int: Int] = [:]
         var measurementDict: [String : Int] = [:]
         var measuredStateList: [Int] = []
         
@@ -50,10 +51,17 @@ public class QuantumState {
                 }
             }
 
+            if tempMeasurementDict[whichState] != nil {
+                tempMeasurementDict[whichState]! += 1
+            } else {
+                tempMeasurementDict[whichState] = 1
+            }
+
             //let y = x.map{ (probabilities[$0]<r_val ? 1 : 0) }
             //let whichState: Int = y.reduce(0, +) //ones.reduce(0){ $0 + (probabilities[$1]<r_val ? $1 : 0 ) }
             //measuredStateList = measuredStateList + [whichState]  //need to convert to strings!
             
+            /*
             var stateString = num2bin(num: whichState, toSize: self.N)
             stateString = qubits.compactMap{ stateString[$0] }.joined()
 
@@ -63,8 +71,18 @@ public class QuantumState {
             } else {
                 measurementDict[stateString] = 1
             }
+            */
             //}
 
+        }
+
+
+        // convert to strings after first using int. Should be quicker?
+        for (whichState, count) in tempMeasurementDict {
+            var stateString = num2bin(num: whichState, toSize: self.N)
+            stateString = qubits.compactMap{ stateString[$0] }.joined()
+
+            measurementDict[stateString] = count
         }
         
         
