@@ -157,6 +157,11 @@ class QuantumCircuit {
         if isQubitMeasured(control) || isQubitMeasured(target) { print("Gate applied after measurement. Not currently implemented!") }
         gates.append(Gate.cz(control, target))
     }
+    
+    func cu(_ control: Int, _ target: Int, _ theta: Double, _ phi: Double, _ lam: Double) {
+        if isQubitMeasured(control) || isQubitMeasured(target) { print("Gate applied after measurement. Not currently implemented!") }
+        gates.append(Gate.cu(control, target, theta, phi, lam))
+    }
 
     //
     // Three qubit gates

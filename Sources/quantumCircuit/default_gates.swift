@@ -174,6 +174,19 @@ extension Gate {
         let matrix_imag = Array(repeating: 0.0, count: 16)
         return Gate(real: matrix_real, imag: matrix_imag, qubits: [control, target])
     }
+    
+    /// Controlled u gate
+    static func cu(_ control: Int, _ target: Int,_ theta: Double, _ phi: Double, _ lam: Double) -> Gate{
+        let matrix_real: [Double] = [1, 0, 0,                       0,
+                                     0, 1, 0,                       0,
+                                     0, 0, cos(theta/2),           -cos(lam)*sin(theta/2),
+                                     0, 0, cos(phi)*sin(theta/2),   cos(phi+lam)*cos(theta/2)]
+        let matrix_imag: [Double] = [0, 0, 0,                       0,
+                                     0, 0, 0,                       0,
+                                     0, 0, 0,                      -sin(lam)*sin(theta/2),
+                                     0, 0, sin(phi)*sin(theta/2),   sin(phi+lam)*cos(theta/2)]
+        return Gate(real: matrix_real, imag: matrix_imag, qubits: [control, target])
+    }
 
 
     //
