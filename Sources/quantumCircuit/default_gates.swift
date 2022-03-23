@@ -198,11 +198,11 @@ extension Gate {
         let matrix_real: [Double] = [1, 0, 0, 0, 0, 0, 0, 0,
                                      0, 1, 0, 0, 0, 0, 0, 0,
                                      0, 0, 1, 0, 0, 0, 0, 0,
-                                     0, 0, 0, 0, 0, 0, 0, 1,
+                                     0, 0, 0, 1, 0, 0, 0, 0,
                                      0, 0, 0, 0, 1, 0, 0, 0,
                                      0, 0, 0, 0, 0, 1, 0, 0,
-                                     0, 0, 0, 0, 0, 0, 1, 0,
-                                     0, 0, 0, 1, 0, 0, 0, 0 ]
+                                     0, 0, 0, 0, 0, 0, 0, 1,
+                                     0, 0, 0, 0, 0, 0, 1, 0 ]
         let matrix_imag = Array(repeating: 0.0, count: 8*8)
         return Gate(real: matrix_real, imag: matrix_imag, qubits: [control1, control2, target])
     }
