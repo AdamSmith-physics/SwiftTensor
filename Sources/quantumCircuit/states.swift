@@ -81,8 +81,12 @@ public class QuantumState: Codable {
         for (whichState, count) in tempMeasurementDict {
             var stateString = num2bin(num: whichState, toSize: self.N)
             stateString = qubits.compactMap{ stateString[$0] }.joined()
-
-            measurementDict[stateString] = count
+            
+            if measurementDict[stateString] != nil {
+                measurementDict[stateString]! += count
+            } else {
+                measurementDict[stateString] = count
+            }
         }
         
         
