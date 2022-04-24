@@ -27,6 +27,7 @@ public struct cplx : CustomStringConvertible {
         else {
             precondition(false, "Error printing cplx!")
         }
+        return ""  // update so we don't need this
     }
 
     static func +(left: cplx, right: cplx) -> cplx{
