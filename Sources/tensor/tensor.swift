@@ -51,6 +51,13 @@ public class Tensor: Codable {
         self.imag = elements.map{$0.imag}
         self.shape = shape
     }
+    
+    static func == (lhs: Tensor, rhs: Tensor) -> Bool {
+        return
+            lhs.real == rhs.real &&
+            lhs.imag == rhs.imag &&
+            lhs.shape == rhs.shape
+    }
 
     func reshape(_ newShape: [Int]) -> Tensor {
         return tensorReshape(T: self, newShape: newShape)

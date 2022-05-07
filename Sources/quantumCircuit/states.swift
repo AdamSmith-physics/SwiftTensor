@@ -22,6 +22,12 @@ public class QuantumState: Codable {
         self.state = state
     }
     
+    static func == (lhs: QuantumState, rhs: QuantumState) -> Bool {
+        return
+            lhs.state == rhs.state &&
+            lhs.N == rhs.N
+    }
+    
     func measure(shots: Int, qubits: [Int]) -> [String : Int] {
         // speed improvement needed!
 
