@@ -47,7 +47,7 @@ public class QuantumState: Codable {
         for _ in 0..<shots {
             let r_val = Double.random(in: 0..<1)
             
-            var whichState: Int = probabilities.count-1
+            /*var whichState: Int = probabilities.count-1
             //var accum = 0.0
             for (i, p) in probabilities.enumerated() {
                 //accum += p
@@ -55,7 +55,9 @@ public class QuantumState: Codable {
                     whichState = i 
                     break
                 }
-            }
+            }*/
+            let whichState: Int = probabilities.firstIndex(where: {$0 > r_val}) ?? probabilities.count-1
+            
 
             if tempMeasurementDict[whichState] != nil {
                 tempMeasurementDict[whichState]! += 1
