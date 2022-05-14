@@ -21,6 +21,7 @@ class QuantumCircuit {
     }
     
     func run(shots: Int) -> [String : Int] {
+        // This should be changed so that qubits without gates should be removed from simulation!
         var finalState = initialState
         for gate in gates {
             finalState = gate.apply(finalState)
