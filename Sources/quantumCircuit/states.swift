@@ -41,6 +41,15 @@ public class QuantumState: Codable {
         return returnVals
     }
     
+    func phases_2pi() -> [Double] {
+        var returnVals: [Double] = []
+        for ii in 0..<state.real.count {
+            let tempPhase = atan2(state.imag[ii], state.real[ii]) / (2*pi)
+            returnVals.append(tempPhase >= 0 ? tempPhase : (tempPhase + 1))  // phase in [0,1)
+        }
+        return returnVals
+    }
+    
     func measure(shots: Int, qubits: [Int]) -> [String : Int] {
         // speed improvement needed!
 
