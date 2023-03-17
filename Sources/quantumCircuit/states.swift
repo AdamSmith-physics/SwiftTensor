@@ -28,10 +28,32 @@ public class QuantumState: Codable {
             lhs.N == rhs.N
     }
     
+    func probabilities() -> [Double] {
+        return (state .* state.conj).real
+    }
+    
+    func phases() -> [Double] {
+        var returnVals: [Double] = []
+        for ii in 0..<state.real.count {
+            let tempPhase = atan2(state.imag[ii], state.real[ii])
+            returnVals.append(tempPhase >= 0 ? tempPhase : (tempPhase + 2*pi))  // phase in [0,2pi)
+        }
+        return returnVals
+    }
+    
+    func phases_2pi() -> [Double] {
+        var returnVals: [Double] = []
+        for ii in 0..<state.real.count {
+            let tempPhase = atan2(state.imag[ii], state.real[ii]) / (2*pi)
+            returnVals.append(tempPhase >= 0 ? tempPhase : (tempPhase + 1))  // phase in [0,1)
+        }
+        return returnVals
+    }
+    
     func measure(shots: Int, qubits: [Int]) -> [String : Int] {
         // speed improvement needed!
 
-        var probabilities: [Double] = (state .* state.conj).real
+        var probabilities: [Double] = self.probabilities()
         probabilities = cumsum(probabilities)  // add line to ensure probabilities add to 1
         
         let x: [Int] = Array(0..<probabilities.count)
