@@ -20,9 +20,9 @@ let package = Package(
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "SwiftTensor",
-            path: "Sources/swift-tensor"),
+            path: "Sources/SwiftTensor"),
         .testTarget(
-            name: "swift-tensorTests",
+            name: "SwiftTensorTests",
             dependencies: ["SwiftTensor"]),
     ]
 )

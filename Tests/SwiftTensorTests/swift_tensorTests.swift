@@ -1,7 +1,7 @@
 import XCTest
 @testable import SwiftTensor
 
-final class swift_tensorTests: XCTestCase {
+final class SwifTensorTests: XCTestCase {
     func testExample() throws {
         // XCTest Documenation
         // https://developer.apple.com/documentation/xctest
