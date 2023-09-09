@@ -9,8 +9,8 @@ import Accelerate
 Can be added together using + operator.
 */
 public struct cplx : CustomStringConvertible {
-    var real : Double
-    var imag : Double
+    public var real : Double
+    public var imag : Double
 
     init(_ real: Double, _ imag: Double) {
         self.real = real
@@ -46,11 +46,11 @@ public func +(left: [cplx], right: [cplx]) -> [cplx]{
 /** Matrix class to allow for efficient matrix multiplication.
 */
 public class Matrix : CustomStringConvertible {
-    var real : [Double] = []
-    var imag : [Double] = []
+    public var real : [Double] = []
+    public var imag : [Double] = []
 
-    var rows : Int = 0
-    var columns : Int = 0
+    public var rows : Int = 0
+    public var columns : Int = 0
 
     public var description: String {
         let real_as_cplx : [cplx] = self.real.map{cplx($0,0)}

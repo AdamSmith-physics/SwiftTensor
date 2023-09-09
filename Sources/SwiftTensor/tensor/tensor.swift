@@ -1,10 +1,10 @@
 import Accelerate
 
 public class Tensor: Codable {
-    var real : [Double] = []
-    var imag : [Double] = []
+    public var real : [Double] = []
+    public var imag : [Double] = []
 
-    var shape : [Int] = []
+    public var shape : [Int] = []
 
     subscript(_ indices: [Int]) -> cplx {
         get {
@@ -30,9 +30,9 @@ public class Tensor: Codable {
         }
     }
 
-    init(){}
+    public init(){}
 
-    init(real: [Double], imag: [Double], shape: [Int]) {
+    public init(real: [Double], imag: [Double], shape: [Int]) {
         precondition(real.count == imag.count, 
                     "Tensor: Real and imaginary parts are different size")
         precondition(real.count == shape.reduce(1, {x,y in x*y}), 
@@ -43,7 +43,7 @@ public class Tensor: Codable {
         self.shape = shape
     }
 
-    init(elements: [cplx], shape: [Int]) {
+    public init(elements: [cplx], shape: [Int]) {
         precondition(elements.count == shape.reduce(1, {x,y in x*y}), 
                     "Tensor: Dimensions don't match input size")
 
@@ -52,14 +52,14 @@ public class Tensor: Codable {
         self.shape = shape
     }
     
-    static func == (lhs: Tensor, rhs: Tensor) -> Bool {
+    public static func == (lhs: Tensor, rhs: Tensor) -> Bool {
         return
             lhs.real == rhs.real &&
             lhs.imag == rhs.imag &&
             lhs.shape == rhs.shape
     }
 
-    func reshape(_ newShape: [Int]) -> Tensor {
+    public func reshape(_ newShape: [Int]) -> Tensor {
         return tensorReshape(T: self, newShape: newShape)
     }
 

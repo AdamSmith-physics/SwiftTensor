@@ -1,13 +1,13 @@
 import Accelerate
 
 extension Tensor {
-    var conj : Tensor {
+    public var conj : Tensor {
         get{
             return conjugate(self)
         }
     }
 
-    func transpose(_ newOrder: [Int]) -> Tensor {
+    public func transpose(_ newOrder: [Int]) -> Tensor {
         return tensorTranspose(T: self, newOrder: newOrder)
     }
 }

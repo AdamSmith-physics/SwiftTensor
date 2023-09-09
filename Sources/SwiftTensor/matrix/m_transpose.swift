@@ -20,7 +20,7 @@ extension Matrix {
     }
 }
 
-func transpose(_ matrix: Matrix) -> Matrix {
+public func transpose(_ matrix: Matrix) -> Matrix {
 
     let aStride = vDSP_Stride(1)
     let cStride = vDSP_Stride(1)
